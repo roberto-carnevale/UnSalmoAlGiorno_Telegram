@@ -17,8 +17,3 @@ function readDebugChat() {
 function sendMessage() {
   return (parseInt(readParams().getRange("B1").getValue()));
 }
-
-
-//http://fortunes.pbworks.com/w/page/14107117/FrontPage
-//Send direct to all
-//https://script.google.com/macros/s/AKfycbwfgBg3UYO2GtQ5NmoLkwqnklwfYg9kKBGB68Q6HlXrVbtKeuile4c1/exec?text=
