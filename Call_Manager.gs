@@ -44,7 +44,7 @@ function doPost(e) {
       if (spread.getSubscriber(bot.update.message.chat.id) == -1) {this.replyToSender("Ciao "+ bot.update.message.from.first_name + " devi prima dare il comando /start ");}
       else {
         var salmoOBJ = new SalmiOnGoogle();
-        this.replyToSender(salmoOBJ.selectVerse());
+        this.replyToSender(salmoOBJ.selectVerse()[0]);
       }
     });
     
@@ -146,7 +146,7 @@ function doRunUnSalmoAcompietaSubscribers() {
   var spread = new SpreadData();
   var bot = new Bot(token, {});
   var salmiObj = new SalmiOnGoogle();
-  var salmoToSend = salmiObj.selectVerse();
+  var salmoToSend = salmiObj.selectVerse()[0];
   var prayers = spread.listSubscribersByTime("c");
   var prayersCount = prayers.length;
   for (var id of prayers) {
@@ -172,7 +172,9 @@ function doRunUnSalmoALodiSubscribers() {
   var spread = new SpreadData();
   var bot = new Bot(token, {});
   var salmiObj = new SalmiOnGoogle();
-  var salmoToSend = salmiObj.selectVerse();
+  var salmoSelected = salmiObj.selectVerse();
+  var salmoToSend = salmoSelected[0];
+  var salmoSeed = salmoSelected[1];
   var prayers = spread.listSubscribersByTime("l");
   var prayersCount = prayers.length;
   for (var id of prayers) {
@@ -185,6 +187,8 @@ function doRunUnSalmoALodiSubscribers() {
       bot.pushMessage(err.toString(), readDebugChat());
     }
   }
+  setlastSentUsers(prayersCount);
+  setlastVerse(salmoSeed);
   //Counts the messages sent
   let err_tab = SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName('LAST_ERROR');
   let executions = err_tab.getRange('A4').getValue();
@@ -210,6 +214,14 @@ function doRunSendMessagetoAll() {
 }
 
 function doGet(e) {
+  var salmiObj = new SalmiOnGoogle();
+  let htmlProlog = "<p><i>Preghiamo!\r\n ...siamo in "+lastSentUsers() +" uniti in preghiera</i></p><p>";
+  let htmlOutput = HtmlService.createHtmlOutput(htmlProlog + salmiObj.niceVerseForWeb(lastVerse())+"</p>");
+  htmlOutput.setXFrameOptionsMode(HtmlService.XFrameOptionsMode.DEFAULT);
+  return htmlOutput;
+}
+
+/* function doGet(e) {
   var template = HtmlService
   .createTemplateFromFile('200');
   try {
@@ -251,7 +263,7 @@ function doGet(e) {
   }
   
   return template.evaluate();
-}
+} */
 
 //Testing function. Use locally
 function test()

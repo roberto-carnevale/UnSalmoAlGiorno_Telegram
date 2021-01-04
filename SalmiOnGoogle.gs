@@ -10,15 +10,22 @@ SalmiOnGoogle.prototype.selectVerse = function() {
   //gets the verse
   let verseRaw = this.tabData.getRange("A"+seedT.toString()+":D"+seedT.toString()).getValues();
   let verse = this.createNiceVerse(verseRaw, seedT);
-  return verse;
+  return [verse, seedT];
 }
 
 SalmiOnGoogle.prototype.createNiceVerse = function(verseRaw, seedT) {
   while (verseRaw[0][1]!="") {
+    Logger.log(verseRaw);
     seedT++;
-    verseRaw = this.tabData.getRange("A"+(parseInt(seedT)+1).toString()+":D"+(parseInt(seedT)+1).toString()).getValues();
+    verseRaw = this.tabData.getRange("A"+(parseInt(seedT)).toString()+":D"+(parseInt(seedT)).toString()).getValues();
   }
   return verseRaw[0][0]+","+verseRaw[0][2] +"\r\n"+ verseRaw[0][3].toString().replace(/###/g,"\r\n");
+}
+
+SalmiOnGoogle.prototype.niceVerseForWeb = function(seedW) {
+  let verseRaw = this.tabData.getRange("A"+seedW+":D"+seedW).getValues();
+  let htmlVerse = verseRaw[0][0]+","+verseRaw[0][2] + "<br/>" + verseRaw[0][3].toString().replace(/###/g,"<br/>");
+  return htmlVerse;
 }
 
 
