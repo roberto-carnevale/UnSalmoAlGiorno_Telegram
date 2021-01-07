@@ -1,5 +1,4 @@
 
-
 // const token = 'XXXXXXXXXXXXXXXXXX';
 // const SubscriberSpreadsheet = 'XXXXXXXXXXXXXXXXXX';
 // const currentWebApp= "https://script.google.com/macros/s/XXXXXXXXXXXXXXXXXX/exec"
