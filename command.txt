@@ -1,5 +1,5 @@
 start - Registrazione
-change - Cambia l'oraio di invio
+change - Cambia l'orario di invio
 prego - Invia un salmo a richiesta
 suspend - Sospende l'invio di un Salmo al giorno
 resume - Riprende l'invio di un Salmo al giorno
