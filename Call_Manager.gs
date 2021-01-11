@@ -44,7 +44,7 @@ function doPost(e) {
       if (spread.getSubscriber(bot.update.message.chat.id) == -1) {this.replyToSender("Ciao "+ bot.update.message.from.first_name + " devi prima dare il comando /start ");}
       else {
         var salmoOBJ = new SalmiOnGoogle();
-        this.replyToSender(salmoOBJ.selectVerse()[0]);
+        this.replyToSender(salmoOBJ.selectVerse());
       }
     });
     
@@ -72,7 +72,7 @@ function doPost(e) {
     
     //Manages "/help" draw cookies command
     bus.on(/\/help/, function () {
-      bot.pushMessage("Ti serve aiuto? https://sites.google.com/view/unsalmoalgiornobot/home \r\n Oppure scrivi a kn35roby@gmail.com ", bot.update.message.chat.id);
+      bot.pushMessage("Ti serve aiuto? https://sites.google.com/view/unsalmoalgiorno/home \r\n Oppure scrivi a kn35roby@gmail.com ", bot.update.message.chat.id);
     });
      
   //########TASTIERA###### 
@@ -140,78 +140,7 @@ function doPost(e) {
   }
 }
 
-function doRunUnSalmoAcompietaSubscribers() {
 
-  //creates the bot and the samiObj
-  var spread = new SpreadData();
-  var bot = new Bot(token, {});
-  var salmiObj = new SalmiOnGoogle();
-  var salmoToSend = salmiObj.selectVerse()[0];
-  var prayers = spread.listSubscribersByTime("c");
-  var prayersCount = prayers.length;
-  for (var id of prayers) {
-    //pushes the message
-    try {
-      bot.pushMessage("Preghiamo!\r\n ...siamo in "+prayersCount +" uniti in preghiera", parseInt(id));
-      bot.pushMessage(salmoToSend, parseInt(id));
-    } catch (err) {
-      bot.pushMessage("Eccezione sul messaggio: " + id.toString(), readDebugChat());
-      bot.pushMessage(err.toString(), readDebugChat());
-    }
-  }
-  //Counts the messages sent
-  let err_tab = SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName('LAST_ERROR');
-  let executions = err_tab.getRange('A4').getValue();
-  executions = parseInt(executions) + 1;
-  err_tab.getRange('A4').setValue(executions);
-}
-
-function doRunUnSalmoALodiSubscribers() {
-
-  //creates the bot and the samiObj
-  var spread = new SpreadData();
-  var bot = new Bot(token, {});
-  var salmiObj = new SalmiOnGoogle();
-  var salmoSelected = salmiObj.selectVerse();
-  var salmoToSend = salmoSelected[0];
-  var salmoSeed = salmoSelected[1];
-  var prayers = spread.listSubscribersByTime("l");
-  var prayersCount = prayers.length;
-  for (var id of prayers) {
-    //pushes the message
-    try {
-      bot.pushMessage("Preghiamo!\r\n ...siamo in "+prayersCount +" uniti in preghiera", parseInt(id));
-      bot.pushMessage(salmoToSend, parseInt(id));
-    } catch (err) {
-      bot.pushMessage("Eccezione sul messaggio: " + id.toString(), readDebugChat());
-      bot.pushMessage(err.toString(), readDebugChat());
-    }
-  }
-  setlastSentUsers(prayersCount);
-  setlastVerse(salmoSeed);
-  //Counts the messages sent
-  let err_tab = SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName('LAST_ERROR');
-  let executions = err_tab.getRange('A4').getValue();
-  executions = parseInt(executions) + 1;
-  err_tab.getRange('A4').setValue(executions);
-}
-
-function doRunSendMessagetoAll() {
-  //creates the bot and the samiObj
-  var spread = new SpreadData();
-  var bot = new Bot(token, {});
-  let count = 0;
-  var text = SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName(SubscriberParams).getRange("B1").getValue();
-  for (var id of spread.listAllSubscribers()) {
-    try {
-      bot.pushMessage(text, parseInt(id));
-    } catch (err) {
-      bot.pushMessage("Eccezione sul messaggio: " + id.toString(), readDebugChat());
-      bot.pushMessage(err.toString(), readDebugChat());
-    }
-  }
-  SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName(SubscriberParams).getRange("C1").setValue(count);
-}
 
 function doGet(e) {
   try {

@@ -8,9 +8,20 @@ SalmiOnGoogle.prototype.selectVerse = function() {
   //gets the seed
   let seedT = parseInt( Math.random() * ( parseInt(this.tabData.getRange("A1").getValue() ) )) +2;
   //gets the verse
-  let verseRaw = this.tabData.getRange("A"+seedT.toString()+":D"+seedT.toString()).getValues();
+  let verseRaw = getVerseData(seedT);
+  while (verseRaw[0][1]!="") {
+  let seedT = parseInt( Math.random() * ( parseInt(this.tabData.getRange("A1").getValue() ) )) +2;
+  //gets the verse
+  let verseRaw = getVerseData(seedT);
+  }
   let verse = this.createNiceVerse(verseRaw, seedT);
-  return [verse, seedT];
+  setlastVerse(seedT);
+  return verse;
+}
+
+SalmiOnGoogle.prototype.getVerseData = function(seedT) {
+  //gets the verse
+  return this.tabData.getRange("A"+seedT.toString()+":D"+seedT.toString()).getValues();
 }
 
 SalmiOnGoogle.prototype.createNiceVerse = function(verseRaw, seedT) {
