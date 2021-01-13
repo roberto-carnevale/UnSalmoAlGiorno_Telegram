@@ -22,3 +22,19 @@ function setlastVerse(num) {
 function setlastSentUsers(num) {
   return (parseInt(readParams().getRange("B3").setValue(num)));
 }
+
+function getTwitterFollowers() {
+  return (parseInt(readParams().getRange("B5").getValue()));
+}
+
+function getTelegramSubcribers() {
+  return SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName("Subscribers").getDataRange().getNumRows();
+}
+
+function getFacebookLikes() {
+  return (parseInt(readParams().getRange("B6").getValue()));
+}
+
+function getAllUsers() {
+  return getTelegramSubcribers()+getFacebookLikes()+getTwitterFollowers();
+}
