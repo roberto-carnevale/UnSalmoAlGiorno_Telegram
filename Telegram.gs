@@ -33,10 +33,13 @@ function doRunUnSalmoALodiSubscribers() {
   var salmoToSend = salmiObj.selectVerse();
   var prayers = spread.listSubscribersByTime("l");
   var prayersCount = prayers.length;
+  var sendTotalUser = 0;
+  if ( (new Date()).getDate() == 6 ) {sendTotalUser = getAllUsers()}
   for (var id of prayers) {
     //pushes the message
     try {
       bot.pushMessage("Preghiamo!\r\n ...siamo in "+prayersCount +" uniti in preghiera", parseInt(id));
+      if (sendTotalUser != 0 ) {bot.pushMessage("Quasta settimana abbiamo pregato in "+ sendTotalUser + ", uniti con chi ci segue dai __social__")}
       bot.pushMessage(salmoToSend, parseInt(id));
     } catch (err) {
       bot.pushMessage("Eccezione sul messaggio: " + id.toString(), readDebugChat());

@@ -72,7 +72,7 @@ function doPost(e) {
     
     //Manages "/help" draw cookies command
     bus.on(/\/help/, function () {
-      bot.pushMessage("Ti serve aiuto? https://sites.google.com/view/unsalmoalgiorno/home \r\n Oppure scrivi a kn35roby@gmail.com ", bot.update.message.chat.id);
+      bot.pushMessage("Ti serve aiuto? http://bit.ly/unsalmoalgiorno \r\n Oppure scrivi a kn35roby@gmail.com ", bot.update.message.chat.id);
     });
      
   //########TASTIERA###### 
