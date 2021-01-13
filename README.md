@@ -5,4 +5,4 @@ The aim is to send to the virtual community of praying the same psalm verse from
 Please connect me [by mail](mailto:kn35roby@gmail.com) if you need more information or connect the [minisite](https://sites.google.com/view/unsalmoalgiorno/home)
 Please consider the site is in Italian and all contents are addresses to Italian speaker. The code and the comments are written in English.
 
-See also linked projects to this multi-channel bot & app. [Twitter](https://github.com/roberto-carnevale/UnSalmoAlGiorno_twitter) and [Web active pages](https://github.com/roberto-carnevale/UnSalmoAlGiorno_web)
+See also linked projects to this multi-channel bot & app. [Twitter](https://github.com/roberto-carnevale/UnSalmoAlGiorno_twitter), [Web active pages](https://github.com/roberto-carnevale/UnSalmoAlGiorno_web) [Facebook](https://github.com/roberto-carnevale/UnSalmoAlGiorno_FB)
