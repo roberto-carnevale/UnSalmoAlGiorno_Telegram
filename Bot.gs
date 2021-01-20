@@ -29,13 +29,16 @@ Bot.prototype.request = function (method, data) {
   'method' : 'post',
   'contentType': 'application/json',
   // Convert the JavaScript object to a JSON string.
-  'payload' : JSON.stringify(data)
+  'payload' : JSON.stringify(data),
  };
   
  var response = UrlFetchApp.fetch('https://api.telegram.org/bot' + this.token + '/' + method, options);
   
  if (response.getResponseCode() == 200) {
   return JSON.parse(response.getContentText());
+ }
+  if (response.getResponseCode() != 200) {
+  Logger.log(response);
  }
 return false;
 }
@@ -52,7 +55,7 @@ Bot.prototype.replyToSender = function (text) {
 Bot.prototype.pushMessage = function (text, id) {
   this.request('sendMessage', {
     'chat_id' : id,
-    'text' : text,
+    'text' : text
   });
 }
 //######TASTIERA####

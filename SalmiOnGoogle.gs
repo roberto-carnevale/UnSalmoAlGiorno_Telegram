@@ -12,8 +12,30 @@ SalmiOnGoogle.prototype.selectVerse = function() {
   while (verseRaw[0][1]!="") {
     seedT = parseInt( Math.random() * ( parseInt(this.tabData.getRange("A1").getValue() ) )) +2;
     //gets the verse
-    verseRaw = getVerseData(seedT);
+    verseRaw = this.getVerseData(seedT);
   }
+  let verse = this.createNiceVerse(verseRaw);
+  setlastVerse(seedT);
+  return verse;
+}
+
+//Draws a tray
+SalmiOnGoogle.prototype.selectTypeVerse = function(type) {
+  //gets the seed
+  var seedT = parseInt( Math.random() * ( parseInt(this.tabData.getRange("A1").getValue() ) )) +2;
+  //gets the verse
+  var verseRaw = this.getVerseData(seedT);
+  while (verseRaw[0][1]!=type) {
+    Logger.log("re-run:" + verseRaw[0][1] + "/" + seedT);
+    seedT = parseInt( Math.random() * ( parseInt(this.tabData.getRange("A1").getValue() ) )) +2;
+    //gets the verse
+    verseRaw = this.getVerseData(seedT);
+  }
+  return seedT;
+}
+
+SalmiOnGoogle.prototype.setVerseLodi = function(seedT) {
+  var verseRaw = this.getVerseData(seedT);
   let verse = this.createNiceVerse(verseRaw);
   setlastVerse(seedT);
   return verse;

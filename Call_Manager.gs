@@ -74,6 +74,15 @@ function doPost(e) {
     bus.on(/\/help/, function () {
       bot.pushMessage("Ti serve aiuto? http://bit.ly/unsalmoalgiorno \r\n Oppure scrivi a kn35roby@gmail.com ", bot.update.message.chat.id);
     });
+
+    //Manages "/SendMessageInTest" draw cookies command
+    bus.on(/\/SendMessageInTest/, function () {
+      doRunSendMessagetoInTest();
+    });
+    //Manages "/SendMessageToAll" draw cookies command
+    bus.on(/\/SendMessageToAll/, function () {
+      doRunSendMessagetoAll();
+    });
      
   //########TASTIERA###### 
     //Manages "/change" command
