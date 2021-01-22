@@ -56,7 +56,7 @@ SalmiOnGoogle.prototype.createNiceVerse = function(verseRaw) {
 }
 
 SalmiOnGoogle.prototype.niceVerseForWeb = function(seedW) {
-  let verseRaw = this.tabData.getRange("A"+seedW+":D"+seedW).getValues();
+  let verseRaw = this.tabTypeData.getRange("A"+seedW+":D"+seedW).getValues();
   let htmlVerse = verseRaw[0][0]+","+verseRaw[0][2] + "<br/>" + verseRaw[0][3].toString().replace(/###/g,"<br/>");
   return htmlVerse;
 }
