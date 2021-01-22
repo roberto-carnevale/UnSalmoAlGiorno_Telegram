@@ -1,7 +1,8 @@
 function myFunction() {
   var bot = new Bot(token, {});;
-  bot.pushMessage("_pippo_\n*pluto*\n"+'"\uD83D\uDD34"', readDebugChat());
+  bot.pushMessage("_pippo_\n*pluto*\n"+'🟢', readDebugChat());
 }
+
 
 
 //https://www.mobilefish.com/services/unicode_escape_sequence_converter/unicode_escape_sequence_converter.php

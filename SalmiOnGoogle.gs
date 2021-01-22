@@ -1,6 +1,7 @@
 function SalmiOnGoogle() {
   //set up tab
   this.tabData = SpreadsheetApp.openById(SalmiDBSpreadsheet).getSheetByName(SalmiDBTab);
+  this.tabTypeData = SpreadsheetApp.openById(SalmiDBSpreadsheet).getSheetByName(SalmiDBByTypeTab);
 }
 
 //Draws a tray
@@ -24,26 +25,30 @@ SalmiOnGoogle.prototype.selectTypeVerse = function(type) {
   //gets the seed
   var seedT = parseInt( Math.random() * ( parseInt(this.tabData.getRange("A1").getValue() ) )) +2;
   //gets the verse
-  var verseRaw = this.getVerseData(seedT);
+  var verseRaw = this.getVerseTypeData(seedT);
   while (verseRaw[0][1]!=type) {
     Logger.log("re-run:" + verseRaw[0][1] + "/" + seedT);
     seedT = parseInt( Math.random() * ( parseInt(this.tabData.getRange("A1").getValue() ) )) +2;
     //gets the verse
-    verseRaw = this.getVerseData(seedT);
+    verseRaw = this.getVerseTypeData(seedT);
   }
   return seedT;
 }
 
-SalmiOnGoogle.prototype.setVerseLodi = function(seedT) {
-  var verseRaw = this.getVerseData(seedT);
+SalmiOnGoogle.prototype.getSelectedTypeVerse = function() {
+  let seedT = lastVerse();
+  var verseRaw = this.getVerseTypeData(seedT);
   let verse = this.createNiceVerse(verseRaw);
-  setlastVerse(seedT);
   return verse;
 }
 
 SalmiOnGoogle.prototype.getVerseData = function(seedT) {
   //gets the verse
   return this.tabData.getRange("A"+seedT.toString()+":D"+seedT.toString()).getValues();
+}
+SalmiOnGoogle.prototype.getVerseTypeData = function(seedT) {
+  //gets the verse
+  return this.tabTypeData.getRange("A"+seedT.toString()+":D"+seedT.toString()).getValues();
 }
 
 SalmiOnGoogle.prototype.createNiceVerse = function(verseRaw) {
