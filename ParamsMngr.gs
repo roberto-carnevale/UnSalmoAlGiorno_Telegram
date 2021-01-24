@@ -38,3 +38,7 @@ function getFacebookLikes() {
 function getAllUsers() {
   return getTelegramSubcribers()+getFacebookLikes()+getTwitterFollowers();
 }
+
+function getLiturgicDay() {
+  return JSON.parse(readParams().getRange("B7").getValue());
+}
