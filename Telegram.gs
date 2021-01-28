@@ -43,7 +43,7 @@ function doRunUnSalmoALodiSubscribers() {
   let stringHoly = "";
   if (dayObj.name) {dayName=dayObj.name;}
   if (dayObj.holy) {stringHoly=stringsHoly[dayObj.holy];}
-  let post1 = dayTempo[dayObj.tempo] + "  Preghiamo "+stringsTempo[dayObj.tempo]+stringHoly+dayName+"  "+dayColor[dayObj.color]+"\r\n\r\n";
+  let post1 = dayTempo[dayObj.tempo] +stringsTempo[dayObj.tempo]+stringHoly+dayName+"  "+dayColor[dayObj.color]+"\r\n\r\n";
  
   post1 += "Preghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera stamattina.";
 
@@ -62,7 +62,7 @@ function doRunUnSalmoALodiSubscribers() {
       bot.pushMessage(err.toString(), readDebugChat());
     }
   }
-  setlastSentUsers(prayersCount);
+  setlastSentUsers(prayers.length);
   //Counts the messages sent
   let err_tab = SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName('LAST_ERROR');
   let executions = err_tab.getRange('A4').getValue();

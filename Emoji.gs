@@ -26,18 +26,18 @@ const dayColor= {
 }
 
 const dayTempo = {
-  A:EmojiCandle,
-  Q:EmojiHolyCross,
-  N:EmojiComet,
-  P:EmojiHolySpirit,
+  A:EmojiCandle + "  ",
+  Q:EmojiHolyCross + "  " ,
+  N:EmojiComet + "  ",
+  P:EmojiHolySpirit+ "  " ,
   O:""
 }
 
 const stringsHoly = {
-  S: ",nella Solennità di ",
-  F: ",nella Festa di ",
-  M: ",in Memoria di ",
-  N: ",oggi "
+  S: ", nella Solennità di ",
+  F: ", nella Festa di ",
+  M: ", in Memoria di ",
+  N: ", oggi "
 }
 
 const stringsTempo = {
