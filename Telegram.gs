@@ -33,10 +33,10 @@ function doRunUnSalmoALodiSubscribers() {
   //creates the bot and the samiObj
   var spread = new SpreadData();
   var bot = new Bot(token, {});
+
   var salmiObj = new SalmiOnGoogle();
-  var salmoToSend = salmiObj.selectVerse();
-  // Send in case of defined Psalm
-  //var salmoToSend = salmiObj.setVerseLodi(1119);
+  var salmoToSend = salmiObj.getSelectedTypeVerse();
+
   var prayers = spread.listSubscribersByTime("l");
 
   var post1 = "Preghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera stamattina.";
@@ -44,7 +44,7 @@ function doRunUnSalmoALodiSubscribers() {
   //Sends Saturday the global number
   var sendTotalUser = 0;
   if ( (new Date()).getDay() == 6 ) {sendTotalUser = getAllUsers();}
-  if (sendTotalUser != 0 ) {post1 += "\r\nQuesta settimana abbiamo pregato in "+ sendTotalUser + " in comunione con chi ci segue dai _social_";}
+  if (sendTotalUser != 0 ) {post1 += "\r\nQuesta settimana abbiamo pregato in "+ sendTotalUser + " in comunione con chi ci segue dai social";}
 
   for (var id of prayers) {
     //pushes the message
@@ -52,7 +52,7 @@ function doRunUnSalmoALodiSubscribers() {
       bot.pushMessage(post1, parseInt(id));
       bot.pushMessage(salmoToSend, parseInt(id));
     } catch (err) {
-      bot.pushMessage('\uD83D\uDD34'+"Eccezione sul messaggio: " + id.toString(), readDebugChat());
+      bot.pushMessage(EmojiSOS+"Eccezione sul messaggio: " + id.toString(), readDebugChat());
       bot.pushMessage(err.toString(), readDebugChat());
     }
   }
