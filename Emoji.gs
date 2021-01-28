@@ -25,9 +25,25 @@ const dayColor= {
   A:EmojiRosary
 }
 
-const datTempo = {
-  A:EmojiCandle,
-  Q:EmojiHolyCross,
-  N:EmojiComet,
-  P:EmojiHolySpirit
+const dayTempo = {
+  A:EmojiCandle + "  ",
+  Q:EmojiHolyCross + "  " ,
+  N:EmojiComet + "  ",
+  P:EmojiHolySpirit+ "  " ,
+  O:""
+}
+
+const stringsHoly = {
+  S: ", nella Solennità di ",
+  F: ", nella Festa di ",
+  M: ", in Memoria di ",
+  N: ", oggi "
+}
+
+const stringsTempo = {
+  A: "Nel tempo di Avvento",
+  Q: "Nel tempo di Quaresima",
+  P: "Nel tempo Pasquale",
+  N: "Nel tempo Natalizio",
+  O: "Nel tempo ordinario"
 }

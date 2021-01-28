@@ -17,7 +17,7 @@ function doRunUnSalmoAcompietaSubscribers() {
       bot.pushMessage(post1, parseInt(id));
       bot.pushMessage(salmoToSend, parseInt(id));
     } catch (err) {
-      bot.pushMessage('\uD83D\uDD34'+"Eccezione sul messaggio: " + id.toString(), readDebugChat());
+      bot.pushMessage(EmojiSOS+"Eccezione sul messaggio: " + id.toString(), readDebugChat());
       bot.pushMessage(err.toString(), readDebugChat());
     }
   }
@@ -38,9 +38,15 @@ function doRunUnSalmoALodiSubscribers() {
   var salmoToSend = salmiObj.getSelectedTypeVerse();
 
   var prayers = spread.listSubscribersByTime("l");
+  let dayObj = getLiturgicDay();
+  let dayName = "";
+  let stringHoly = "";
+  if (dayObj.name) {dayName=dayObj.name;}
+  if (dayObj.holy) {stringHoly=stringsHoly[dayObj.holy];}
+  let post1 = dayTempo[dayObj.tempo] +stringsTempo[dayObj.tempo]+stringHoly+dayName+"  "+dayColor[dayObj.color]+"\r\n\r\n";
+ 
+  post1 += "Preghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera stamattina.";
 
-  var post1 = "Preghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera stamattina.";
-  
   //Sends Saturday the global number
   var sendTotalUser = 0;
   if ( (new Date()).getDay() == 6 ) {sendTotalUser = getAllUsers();}
@@ -56,7 +62,7 @@ function doRunUnSalmoALodiSubscribers() {
       bot.pushMessage(err.toString(), readDebugChat());
     }
   }
-  setlastSentUsers(prayersCount);
+  setlastSentUsers(prayers.length);
   //Counts the messages sent
   let err_tab = SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName('LAST_ERROR');
   let executions = err_tab.getRange('A4').getValue();
