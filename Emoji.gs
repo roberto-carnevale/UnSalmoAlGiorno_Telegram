@@ -41,9 +41,9 @@ const stringsHoly = {
 }
 
 const stringsTempo = {
-  A: "Nel tempo di Avvento",
-  Q: "Nel tempo di Quaresima",
-  P: "Nel tempo Pasquale",
-  N: "Nel tempo Natalizio",
-  O: "Nel tempo ordinario"
+  A: "Nel tempo di Avvento ",
+  Q: "Nel tempo di Quaresima ",
+  P: "Nel tempo Pasquale ",
+  N: "Nel tempo Natalizio ",
+  O: "Nel tempo ordinario "
 }

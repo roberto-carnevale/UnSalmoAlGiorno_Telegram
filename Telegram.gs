@@ -35,7 +35,7 @@ function doRunUnSalmoALodiSubscribers() {
   var bot = new Bot(token, {});
 
   var salmiObj = new SalmiOnGoogle();
-  var salmoToSend = salmiObj.getSelectedTypeVerse();
+  var salmoToSend = salmiObj.createNiceVerse();
 
   var prayers = spread.listSubscribersByTime("l");
   let dayObj = getLiturgicDay();
