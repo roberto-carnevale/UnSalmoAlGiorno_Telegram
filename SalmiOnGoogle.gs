@@ -52,7 +52,7 @@ SalmiOnGoogle.prototype.getVerseTypeData = function(seedT) {
 }
 
 SalmiOnGoogle.prototype.createNiceVerse = function() {
-  lastVerseFull().toString().replace(/###/g,"\r\n");
+  return lastVerseFull().toString().replace(/###/g,"\r\n");
 }
 
 SalmiOnGoogle.prototype.niceVerseForWeb = function(seedW) {
