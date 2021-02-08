@@ -17,8 +17,8 @@ function doRunUnSalmoAcompietaSubscribers() {
       bot.pushMessage(post1, parseInt(id));
       bot.pushMessage(salmoToSend, parseInt(id));
     } catch (err) {
-      bot.pushMessage(EmojiSOS+"Eccezione sul messaggio: " + id.toString(), readDebugChat());
-      bot.pushMessage(err.toString(), readDebugChat());
+      bot.pushMessage(EmojiSOS+"Eccezione sul messaggio: " + id.toString(), getDebugChat());
+      bot.pushMessage(err.toString(), getDebugChat());
     }
   }
   //Counts the messages sent
@@ -34,8 +34,7 @@ function doRunUnSalmoALodiSubscribers() {
   var spread = new SpreadData();
   var bot = new Bot(token, {});
 
-  var salmiObj = new SalmiOnGoogle();
-  var salmoToSend = salmiObj.createNiceVerse();
+  var salmoToSend = getLastVerseFull().toString().replace(/###/g,"\r\n");
 
   var prayers = spread.listSubscribersByTime("l");
   let dayObj = getLiturgicDay();
@@ -50,19 +49,19 @@ function doRunUnSalmoALodiSubscribers() {
   //Sends Saturday the global number
   var sendTotalUser = 0;
   if ( (new Date()).getDay() == 6 ) {sendTotalUser = getAllUsers();}
-  if (sendTotalUser != 0 ) {post1 += "\r\nQuesta settimana abbiamo pregato in "+ sendTotalUser + " in comunione con chi ci segue dai social";}
-
+  if (sendTotalUser != 0 ) {post1 += "\r\n"+ getWeekMsg().toString().replace(/<TOT>/, sendTotalUser) + "\r\n";}
+  
   for (var id of prayers) {
     //pushes the message
     try {
       bot.pushMessage(post1, parseInt(id));
       bot.pushMessage(salmoToSend, parseInt(id));
     } catch (err) {
-      bot.pushMessage(EmojiSOS+"Eccezione sul messaggio: " + id.toString(), readDebugChat());
-      bot.pushMessage(err.toString(), readDebugChat());
+      bot.pushMessage(EmojiSOS+"Eccezione sul messaggio: " + id.toString(), getDebugChat());
+      bot.pushMessage(err.toString(), getDebugChat());
     }
   }
-  setlastSentUsers(prayers.length);
+  setLastSentUsers(prayers.length);
   //Counts the messages sent
   let err_tab = SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName('LAST_ERROR');
   let executions = err_tab.getRange('A4').getValue();
@@ -82,15 +81,15 @@ function doRunSendMessagetoAll() {
         bot.pushMessage(text, parseInt(id));
         count++;
       } catch (err) {
-        bot.pushMessage('\uD83D\uDD34'+"Eccezione sul messaggio: " + id.toString(), readDebugChat());
-        bot.pushMessage(err.toString(), readDebugChat());
+        bot.pushMessage('\uD83D\uDD34'+"Eccezione sul messaggio: " + id.toString(), getDebugChat());
+        bot.pushMessage(err.toString(), getDebugChat());
       }
     }
     SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName(SubscriberParams).getRange("B1").setValue("");
     SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName(SubscriberParams).getRange("C1").setValue(count);
-    bot.pushMessage(count + " messages sent.", readDebugChat());
+    bot.pushMessage(count + " messages sent.", getDebugChat());
   } else {
-    bot.pushMessage('\uD83D\uDD34'+"No messages sent.", readDebugChat());
+    bot.pushMessage('\uD83D\uDD34'+"No messages sent.", getDebugChat());
   }
 }
 
@@ -100,5 +99,5 @@ function doRunSendMessagetoInTest() {
   var spread = new SpreadData();
   var bot = new Bot(token, {});
   var text = SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName(SubscriberParams).getRange("B1").getValue();
-  bot.pushMessage('\uD83D\uDD34'+text, readDebugChat());
+  bot.pushMessage('\uD83D\uDD34'+text, getDebugChat());
 }

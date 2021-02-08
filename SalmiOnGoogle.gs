@@ -16,7 +16,7 @@ SalmiOnGoogle.prototype.selectVerse = function() {
     verseRaw = this.getVerseData(seedT);
   }
   let verse = this.createNiceVerse(verseRaw);
-  setlastVerse(seedT);
+  setLastVerse(seedT);
   return verse;
 }
 
@@ -36,8 +36,7 @@ SalmiOnGoogle.prototype.selectTypeVerse = function(type) {
 }
 
 SalmiOnGoogle.prototype.getSelectedTypeVerse = function() {
-  //let seedT = lastVerse();
-  //var verseRaw = this.getVerseTypeData(seedT);
+
   let verse = this.createNiceVerse(verseRaw);
   return verse;
 }
@@ -52,12 +51,12 @@ SalmiOnGoogle.prototype.getVerseTypeData = function(seedT) {
 }
 
 SalmiOnGoogle.prototype.createNiceVerse = function() {
-  return lastVerseFull().toString().replace(/###/g,"\r\n");
+  return getLastVerseFull().toString().replace(/###/g,"\r\n");
 }
 
 SalmiOnGoogle.prototype.niceVerseForWeb = function(seedW) {
   let verseRaw = this.tabTypeData.getRange("A"+seedW+":D"+seedW).getValues();
-  let htmlVerse = lastVerseFull().toString().replace(/###/g,"<br/>");
+  let htmlVerse = getLastVerseFull().toString().replace(/###/g,"<br/>");
   return htmlVerse;
 }
 

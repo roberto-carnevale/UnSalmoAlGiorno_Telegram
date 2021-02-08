@@ -25,7 +25,7 @@ function doPost(e) {
         this.replyToSender("Usa il comando /help per maggiori info");
         this.replyToSender("Buona Preghiera! Roberto")
         spread.writeSubscriber(bot.update.message.from.id, bot.update.message.from.first_name, bot.update.message.from.last_name);
-        bot.pushMessage("UnSalmoAlGiorno START: " + (bot.update.message.from.id).toString() + ">" + bot.update.message.from.first_name + " " +  bot.update.message.from.last_name, readDebugChat());
+        bot.pushMessage("UnSalmoAlGiorno START: " + (bot.update.message.from.id).toString() + ">" + bot.update.message.from.first_name + " " +  bot.update.message.from.last_name, getDebugChat());
       } else {
         bot.pushMessage("Ciao a tutti e grazie di avermi aggiunto alla chat " + bot.update.message.chat.title, bot.update.message.chat.id);
         spread.writeSubscriber(bot.update.message.chat.id, bot.update.message.chat.title, "*GROUP*");
@@ -36,7 +36,7 @@ function doPost(e) {
     bus.on(/\/stop/, function () {
       this.replyToSender("Non dimenticarti mai di pregare, arrivederci " + bot.update.message.from.first_name);
       spread.deleteSubscriber(bot.update.message.from.id, bot.update.message.from.first_name, bot.update.message.from.last_name);
-      bot.pushMessage("UnSalmoAlGiorno STOP: " + (bot.update.message.from.id).toString() + ">" + bot.update.message.from.first_name + " " +  bot.update.message.from.last_name, readDebugChat());
+      bot.pushMessage("UnSalmoAlGiorno STOP: " + (bot.update.message.from.id).toString() + ">" + bot.update.message.from.first_name + " " +  bot.update.message.from.last_name, getDebugChat());
     });
     
     //Manages "/prego" command
@@ -52,7 +52,7 @@ function doPost(e) {
     //Manages "/suspend" draw cookies command
     bus.on(/\/suspend/, function () {
       var line_id = spread.getSubscriber(bot.update.message.chat.id);
-      bot.pushMessage(bot.update.message.chat.id + " ha sospeso UnSalmoAlGiorno", readDebugChat());
+      bot.pushMessage(bot.update.message.chat.id + " ha sospeso UnSalmoAlGiorno", getDebugChat());
       if (line_id > -1) { 
         spread.setStatus(line_id, "N");
         bot.pushMessage("Sospeso l'invio automatico di un Salmo al giorno", parseInt(bot.update.message.chat.id));
@@ -63,7 +63,7 @@ function doPost(e) {
     //Manages "/resume" draw cookies command
     bus.on(/\/resume/, function () {
       var line_id = spread.getSubscriber(bot.update.message.chat.id);
-      bot.pushMessage(bot.update.message.chat.id + " ha ripreso UnSalmoAlGiorno", readDebugChat());
+      bot.pushMessage(bot.update.message.chat.id + " ha ripreso UnSalmoAlGiorno", getDebugChat());
       if (line_id > -1) { 
         spread.setStatus(line_id, "Y"); 
         bot.pushMessage("Buona preghiera con un Salmo al giorno", parseInt(bot.update.message.chat.id));
@@ -154,8 +154,8 @@ function doPost(e) {
 function doGet(e) {
   try {
     var salmiObj = new SalmiOnGoogle();
-    let htmlProlog = "<p><i>Preghiamo!\r\n ...siamo in "+lastSentUsers() +" uniti in preghiera</i></p><p>";
-    let htmlOutput = HtmlService.createHtmlOutput(htmlProlog + salmiObj.niceVerseForWeb(lastVerse())+"</p>");
+    let htmlProlog = "<p><i>Preghiamo!\r\n ...siamo in "+getLastSentUsers() +" uniti in preghiera</i></p><p>";
+    let htmlOutput = HtmlService.createHtmlOutput(htmlProlog + salmiObj.niceVerseForWeb(getLastVerse())+"</p>");
     htmlOutput.setSandboxMode(HtmlService.SandboxMode.IFRAME)
     htmlOutput.setXFrameOptionsMode(HtmlService.XFrameOptionsMode.DEFAULT);
     return htmlOutput;
@@ -186,7 +186,7 @@ function doGet(e) {
       }
     }
     //sends message to Roberto
-    bot.pushMessage("Messaggi: " + countMessages.toString(), readDebugChat());
+    bot.pushMessage("Messaggi: " + countMessages.toString(), getDebugChat());
     //prepare the page
     template.num = countMessages;
     template.text = e.parameter["text"];
@@ -197,8 +197,8 @@ function doGet(e) {
         try {
           bot.pushMessage(template.text, parseInt(id));
         } catch (err) {
-          bot.pushMessage("Eccezione sul messaggio: " + id.toString(), readDebugChat());
-          bot.pushMessage(err.toString(), readDebugChat());
+          bot.pushMessage("Eccezione sul messaggio: " + id.toString(), getDebugChat());
+          bot.pushMessage(err.toString(), getDebugChat());
         }
       }
     }
