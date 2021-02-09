@@ -52,6 +52,12 @@ function getdayFull() {
 function getWeekMsg () {
   return readParams().getRange("B10").getValue();
 }
+
+//compietaMsg
+function setCompietaFull(msg) {
+  readParams().getRange("B11").setValue(msg);
+}
+
 function getTelegramSubcribers() {
   return SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName("Subscribers").getDataRange().getNumRows();
 }

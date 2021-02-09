@@ -6,17 +6,18 @@ function SalmiOnGoogle() {
 
 // Used for prego command!
 SalmiOnGoogle.prototype.selectVerse = function() {
+  let objLiturgicDay = getLiturgicDay()
   //gets the seed
-  var seedT = parseInt( Math.random() * ( parseInt(this.tabData.getRange("A1").getValue() ) )) +2;
+  var seedT = parseInt( Math.random() * ( parseInt(this.tabTypeData.getRange("A1").getValue() ) )) +2;
   //gets the verse
-  var verseRaw = this.getVerseData(seedT);
-  while (verseRaw[0][1]!="") {
-    seedT = parseInt( Math.random() * ( parseInt(this.tabData.getRange("A1").getValue() ) )) +2;
+  var verseRaw = this.getVerseTypeData(seedT);
+  while (verseRaw[0][1]!=objLiturgicDay.psalm) {
+    seedT = parseInt( Math.random() * ( parseInt(this.tabTypeData.getRange("A1").getValue() ) )) +2;
     //gets the verse
-    verseRaw = this.getVerseData(seedT);
+    verseRaw = this.getVerseTypeData(seedT);
   }
-  let verse = this.createNiceVerse(verseRaw);
-  setLastVerse(seedT);
+  let verse = this.createNiceVerseRandom(seedT);
+
   return verse;
 }
 
@@ -41,10 +42,6 @@ SalmiOnGoogle.prototype.getSelectedTypeVerse = function() {
   return verse;
 }
 
-SalmiOnGoogle.prototype.getVerseData = function(seedT) {
-  //gets the verse
-  return this.tabData.getRange("A"+seedT.toString()+":D"+seedT.toString()).getValues();
-}
 SalmiOnGoogle.prototype.getVerseTypeData = function(seedT) {
   //gets the verse
   return this.tabTypeData.getRange("A"+seedT.toString()+":D"+seedT.toString()).getValues();
@@ -52,6 +49,12 @@ SalmiOnGoogle.prototype.getVerseTypeData = function(seedT) {
 
 SalmiOnGoogle.prototype.createNiceVerse = function() {
   return getLastVerseFull().toString().replace(/###/g,"\r\n");
+}
+
+SalmiOnGoogle.prototype.createNiceVerseRandom = function(seedT) {
+  let verseRaw = this.tabTypeData.getRange("A"+seedT.toString()+":D"+seedT.toString()).getValues();
+  let verse = verseRaw[0][0]+","+verseRaw[0][2] + "###" + verseRaw[0][3].toString();
+  return verse.replace(/###/g,"\r\n");
 }
 
 
