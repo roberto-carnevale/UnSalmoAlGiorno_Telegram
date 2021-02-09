@@ -35,6 +35,16 @@ const dayTempo = {
   O:""
 }
 
+const stringColorMailingList= {
+  G:"Oggi paramenti verdi",
+  V:"Oggi paramenti viola",
+  W:"Oggi paramenti bianchi",
+  R:"Oggi paramenti rossi",
+  S:"Oggi paramenti rosa",
+  B:"Oggi paramenti neri",
+  A:"Oggi gioranta Mariana",
+}
+
 const stringsHoly = {
   S: ", nella Solennità di ",
   F: ", nella Festa di ",

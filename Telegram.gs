@@ -42,7 +42,7 @@ function doRunUnSalmoALodiSubscribers() {
   let stringHoly = "";
   if (dayObj.name) {dayName=dayObj.name;}
   if (dayObj.holy) {stringHoly=stringsHoly[dayObj.holy];}
-  let post1 = dayColor[dayObj.color]+ " "+ getdayFull() +"\r\n\r\n";
+  let post1 = dayColor[dayObj.color]+ "  "+stringColorMailingList[dayObj.color]+ "  " +dayColor[dayObj.color]+"\r\n"+ getdayFull() +"\r\n\r\n";
  
   post1 += "Preghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera stamattina.";
 

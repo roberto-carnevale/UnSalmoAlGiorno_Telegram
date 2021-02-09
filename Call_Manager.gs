@@ -154,7 +154,7 @@ function doPost(e) {
 function doGet(e) {
   try {
     let dayObj = getLiturgicDay();
-    htmlProlog = "<font style='color:"+codeColor[dayObj.color]+"'>"+CharacterCircle+"</font><br/>"+getdayFull().toString().replace(/###/g,"<br/>")+"<br/>";
+    htmlProlog = "<font style='color:"+codeColor[dayObj.color]+"'>"+CharacterCircle+ "  "+stringColorMailingList[dayObj.color]+"  "+CharacterCircle+"</font><br/>"+getdayFull().toString().replace(/###/g,"<br/>")+"<br/>";
     htmlProlog += "<p><i>Preghiamo!\r\n ...siamo in "+getLastSentUsers() +" uniti in preghiera</i></p><hr/><p>";
     htmlProlog += getLastVerseFull().toString().replace(/###/g,"<br/>") + "</p>";
     let htmlOutput = HtmlService.createHtmlOutput(htmlProlog);
