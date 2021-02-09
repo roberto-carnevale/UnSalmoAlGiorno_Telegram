@@ -153,9 +153,8 @@ function doPost(e) {
 
 function doGet(e) {
   try {
-    var salmiObj = new SalmiOnGoogle();
     let htmlProlog = "<p><i>Preghiamo!\r\n ...siamo in "+getLastSentUsers() +" uniti in preghiera</i></p><p>";
-    let htmlOutput = HtmlService.createHtmlOutput(htmlProlog + salmiObj.niceVerseForWeb(getLastVerse())+"</p>");
+    let htmlOutput = HtmlService.createHtmlOutput(htmlProlog + getLastVerseFull().toString().replace(/###/g,"<br/>")+"</p>");
     htmlOutput.setSandboxMode(HtmlService.SandboxMode.IFRAME)
     htmlOutput.setXFrameOptionsMode(HtmlService.XFrameOptionsMode.DEFAULT);
     return htmlOutput;

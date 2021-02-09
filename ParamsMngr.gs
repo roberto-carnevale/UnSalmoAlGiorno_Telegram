@@ -38,11 +38,16 @@ function setFacebookLikes(num) {
 function getLiturgicDay() {
   return JSON.parse(readParams().getRange("B7").getValue());
 }
+
 //lastVerseFull
 function getLastVerseFull() {
   return readParams().getRange("B8").getValue();
 }
 //dayFull
+function getdayFull() {
+  return readParams().getRange("B9").getValue();
+}
+
 //weekMsg
 function getWeekMsg () {
   return readParams().getRange("B10").getValue();

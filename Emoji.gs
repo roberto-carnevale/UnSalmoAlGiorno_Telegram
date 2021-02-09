@@ -22,7 +22,8 @@ const dayColor= {
   R:EmojiRedCricle,
   S:EmojiCandle,
   B:EmojiBlackCircle,
-  A:EmojiRosary
+  A:EmojiRosary,
+  T:EmojiPray 
 }
 
 const dayTempo = {
