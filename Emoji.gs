@@ -14,6 +14,7 @@ const EmojiHolySpirit="🕊️";
 const EmojiFamily="👨‍👩‍👦";
 const EmojiComet="☄️";
 const EmojiSOS="🆘";
+const CharacterCircle = "⬤";
 
 const dayColor= {
   G:EmojiGreenCircle,
@@ -47,4 +48,14 @@ const stringsTempo = {
   P: "Nel tempo Pasquale ",
   N: "Nel tempo Natalizio ",
   O: "Nel tempo ordinario "
+}
+
+const codeColor= {
+  G:"#008000",
+  V:"#8000FF",
+  W:"#FFD700",
+  R:"#A61022",
+  S:"#E75480",
+  B:"#FFFFFF",
+  A:"#ABCDEF",
 }

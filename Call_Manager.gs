@@ -153,8 +153,11 @@ function doPost(e) {
 
 function doGet(e) {
   try {
-    let htmlProlog = "<p><i>Preghiamo!\r\n ...siamo in "+getLastSentUsers() +" uniti in preghiera</i></p><p>";
-    let htmlOutput = HtmlService.createHtmlOutput(htmlProlog + getLastVerseFull().toString().replace(/###/g,"<br/>")+"</p>");
+    let dayObj = getLiturgicDay();
+    htmlProlog = "<font style='color:"+codeColor[dayObj.color]+"'>"+CharacterCircle+"</font><br/>"+getdayFull().toString().replace(/###/g,"<br/>")+"<br/>";
+    htmlProlog += "<p><i>Preghiamo!\r\n ...siamo in "+getLastSentUsers() +" uniti in preghiera</i></p><hr/><p>";
+    htmlProlog += getLastVerseFull().toString().replace(/###/g,"<br/>") + "</p>";
+    let htmlOutput = HtmlService.createHtmlOutput(htmlProlog);
     htmlOutput.setSandboxMode(HtmlService.SandboxMode.IFRAME)
     htmlOutput.setXFrameOptionsMode(HtmlService.XFrameOptionsMode.DEFAULT);
     return htmlOutput;
