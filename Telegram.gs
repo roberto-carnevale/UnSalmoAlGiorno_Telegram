@@ -10,7 +10,7 @@ function doRunUnSalmoAcompietaSubscribers() {
   let verseRow = compietaObj.selectVerse(now.getDay());
   var prayers = spread.listSubscribersByTime("c");
   let salmoToSend = compietaObj.createNiceVerse(verseRow, now.getDay())+ "\r\n \r\nBuonanotte 🛌";
-  var post1 = "Compieta "+compietaObj.getDayString(now.getDay())+", preghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera.\r\nBuonanotte 🛌";
+  var post1 = "Compieta "+compietaObj.getDayString(now.getDay())+", preghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera.";
   setCompietaFull(post1.replace(/\r\n/g, "###") + "### ###" + salmoToSend.replace(/\r\n/g, "###"));
   for (var id of prayers) {
     //pushes the message
