@@ -2,43 +2,71 @@ function readParams() {
   return SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName(SubscriberParams);
 }
 
-function readDebugChat() {
-  return (parseInt(readParams().getRange("B4").getValue()));
-}
-
 function sendMessage() {
   return (parseInt(readParams().getRange("B1").getValue()));
 }
-function lastVerse() {
+//lastVerse
+function getLastVerse() {
   return (parseInt(readParams().getRange("B2").getValue()));
 }
-function lastSentUsers() {
-  return (parseInt(readParams().getRange("B3").getValue()));
-}
-
-function setlastVerse(num) {
+function setLastVerse(num) {
   return (parseInt(readParams().getRange("B2").setValue(num)));
 }
-function setlastSentUsers(num) {
-  return (parseInt(readParams().getRange("B3").setValue(num)));
+//lastSentUsers
+function getLastSentUsers() {
+  return (parseInt(readParams().getRange("B3").getValue()));
 }
-
+function setLastSentUsers(num) {
+  readParams().getRange("B3").setValue(num);
+}
+//debugChat
+function getDebugChat() {
+  return (parseInt(readParams().getRange("B4").getValue()));
+}
+//twitterFollowers
 function getTwitterFollowers() {
   return (parseInt(readParams().getRange("B5").getValue()));
+}
+//facebookLikes
+function getFacebookLikes() {
+  return (parseInt(readParams().getRange("B6").getValue()));
+}
+function setFacebookLikes(num) {
+  readParams().getRange("B6").setValue(num);
+}
+//liturgicDay
+function getLiturgicDay() {
+  return JSON.parse(readParams().getRange("B7").getValue());
+}
+
+//lastVerseFull
+function getLastVerseFull() {
+  return readParams().getRange("B8").getValue();
+}
+//dayFull
+function getdayFull() {
+  return readParams().getRange("B9").getValue();
+}
+
+//weekMsg
+function getWeekMsg () {
+  return readParams().getRange("B10").getValue();
+}
+
+//compietaMsg
+function setCompietaFull(msg) {
+  readParams().getRange("B11").setValue(msg);
 }
 
 function getTelegramSubcribers() {
   return SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName("Subscribers").getDataRange().getNumRows();
 }
-
-function getFacebookLikes() {
-  return (parseInt(readParams().getRange("B6").getValue()));
-}
-
 function getAllUsers() {
   return getTelegramSubcribers()+getFacebookLikes()+getTwitterFollowers();
 }
 
-function getLiturgicDay() {
-  return JSON.parse(readParams().getRange("B7").getValue());
-}
+
+
+
+
+

@@ -1,6 +1,5 @@
 function myFunction() {
-  var bot = new Bot(token, {});;
-  bot.pushMessage("_pippo_\n*pluto*\n"+'🟢', readDebugChat());
+  var bot = new Bot(token, {}); bot.pushMessage("_pippo_\n*pluto*\n"+'🟢', getDebugChat());
 }
 
 

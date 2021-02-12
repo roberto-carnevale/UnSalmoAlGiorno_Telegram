@@ -4,19 +4,20 @@ function SalmiOnGoogle() {
   this.tabTypeData = SpreadsheetApp.openById(SalmiDBSpreadsheet).getSheetByName(SalmiDBByTypeTab);
 }
 
-//Draws a tray
+// Used for prego command!
 SalmiOnGoogle.prototype.selectVerse = function() {
+  let objLiturgicDay = getLiturgicDay()
   //gets the seed
-  var seedT = parseInt( Math.random() * ( parseInt(this.tabData.getRange("A1").getValue() ) )) +2;
+  var seedT = parseInt( Math.random() * ( parseInt(this.tabTypeData.getRange("A1").getValue() ) )) +2;
   //gets the verse
-  var verseRaw = this.getVerseData(seedT);
-  while (verseRaw[0][1]!="") {
-    seedT = parseInt( Math.random() * ( parseInt(this.tabData.getRange("A1").getValue() ) )) +2;
+  var verseRaw = this.getVerseTypeData(seedT);
+  while (verseRaw[0][1]!=objLiturgicDay.psalm) {
+    seedT = parseInt( Math.random() * ( parseInt(this.tabTypeData.getRange("A1").getValue() ) )) +2;
     //gets the verse
-    verseRaw = this.getVerseData(seedT);
+    verseRaw = this.getVerseTypeData(seedT);
   }
-  let verse = this.createNiceVerse(verseRaw);
-  setlastVerse(seedT);
+  let verse = this.createNiceVerseRandom(seedT);
+
   return verse;
 }
 
@@ -36,30 +37,26 @@ SalmiOnGoogle.prototype.selectTypeVerse = function(type) {
 }
 
 SalmiOnGoogle.prototype.getSelectedTypeVerse = function() {
-  let seedT = lastVerse();
-  var verseRaw = this.getVerseTypeData(seedT);
+
   let verse = this.createNiceVerse(verseRaw);
   return verse;
 }
 
-SalmiOnGoogle.prototype.getVerseData = function(seedT) {
-  //gets the verse
-  return this.tabData.getRange("A"+seedT.toString()+":D"+seedT.toString()).getValues();
-}
 SalmiOnGoogle.prototype.getVerseTypeData = function(seedT) {
   //gets the verse
   return this.tabTypeData.getRange("A"+seedT.toString()+":D"+seedT.toString()).getValues();
 }
 
-SalmiOnGoogle.prototype.createNiceVerse = function(verseRaw) {
-  return verseRaw[0][0]+","+verseRaw[0][2] +"\r\n"+ verseRaw[0][3].toString().replace(/###/g,"\r\n");
+SalmiOnGoogle.prototype.createNiceVerse = function() {
+  return getLastVerseFull().toString().replace(/###/g,"\r\n");
 }
 
-SalmiOnGoogle.prototype.niceVerseForWeb = function(seedW) {
-  let verseRaw = this.tabTypeData.getRange("A"+seedW+":D"+seedW).getValues();
-  let htmlVerse = verseRaw[0][0]+","+verseRaw[0][2] + "<br/>" + verseRaw[0][3].toString().replace(/###/g,"<br/>");
-  return htmlVerse;
+SalmiOnGoogle.prototype.createNiceVerseRandom = function(seedT) {
+  let verseRaw = this.tabTypeData.getRange("A"+seedT.toString()+":D"+seedT.toString()).getValues();
+  let verse = verseRaw[0][0]+","+verseRaw[0][2] + "###" + verseRaw[0][3].toString();
+  return verse.replace(/###/g,"\r\n");
 }
+
 
 
 //Testing function. Use locally

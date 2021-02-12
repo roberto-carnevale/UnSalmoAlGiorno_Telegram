@@ -30,15 +30,18 @@ Bot.prototype.request = function (method, data) {
   'contentType': 'application/json',
   // Convert the JavaScript object to a JSON string.
   'payload' : JSON.stringify(data),
+  'muteHttpExceptions' : true
  };
-  
+ Logger.log(options.payload.toString());
+
  var response = UrlFetchApp.fetch('https://api.telegram.org/bot' + this.token + '/' + method, options);
-  
+ 
  if (response.getResponseCode() == 200) {
   return JSON.parse(response.getContentText());
  }
   if (response.getResponseCode() != 200) {
-  Logger.log(response);
+  Logger.log(response.getResponseCode());
+  Logger.log(response.getContentText());
  }
 return false;
 }
@@ -53,11 +56,41 @@ Bot.prototype.replyToSender = function (text) {
 
 //Sends a direct message
 Bot.prototype.pushMessage = function (text, id) {
-  this.request('sendMessage', {
+  return this.request('sendMessage', {
     'chat_id' : id,
     'text' : text
   });
 }
+
+//////////////////////////////TEST -- WORKING AREA  ///////////////////////////////////////////////
+function testMedia () {
+  var file = DriveApp.getFolderById("16fgZ4yKCc2c-tOmkyuFNFU-_4Oewu4Fz").getFilesByName("brand.jpg").next().getBlob();
+  //Logger.log(file.getBlob().getContentType());
+  var bot = new Bot(token, {})
+
+   var options = {
+    'method' : 'post',
+    payload: {'chat_id':getDebugChat().toString(),
+    'photo': "AgACAgQAAxkDAANFYCcSduYbYCeYcR_-3YVnnS1TDZgAApu2MRsMCDlRltFAEhksWfYgvQUpXQADAQADAgADbQADjqcDAAEeBA"},
+    'muteHttpExceptions': true
+  };
+Logger.log(UrlFetchApp.getRequest('https://api.telegram.org/bot1603346201:AAHspbLK3s9vYjr0Ni8TulLFkl-3ioGQYUg/sendPhoto', options));
+ var response = UrlFetchApp.fetch('https://api.telegram.org/bot1603346201:AAHspbLK3s9vYjr0Ni8TulLFkl-3ioGQYUg/sendPhoto', options);
+
+Logger.log(response.getResponseCode());
+ if (response.getResponseCode() == 200) {
+  Logger.log(response);
+  return JSON.parse(response);
+ }
+  if (response.getResponseCode() != 200) {
+  Logger.log(response);
+
+ }
+return false;
+}
+
+//////////////////////////////////////////////////////////////////////
+
 //######TASTIERA####
 //still under test to create a custom keyboard
 Bot.prototype.createKeyboard = function(arrayOfButtons) {
