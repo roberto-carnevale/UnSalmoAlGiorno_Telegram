@@ -39,13 +39,15 @@ function doRunUnSalmoALodiSubscribers() {
 
   var prayers = spread.listSubscribersByTime("l");
   let dayObj = getLiturgicDay();
-  let dayName = "";
-  let stringHoly = "";
-  if (dayObj.name) {dayName=dayObj.name;}
-  if (dayObj.holy) {stringHoly=stringsHoly[dayObj.holy];}
+
   let post1 = dayColor[dayObj.color]+ "  "+stringColorMailingList[dayObj.color]+ "  " +dayColor[dayObj.color]+"\r\n"+ getdayFull().toString().replace(/###/g,"\r\n") +"\r\n\r\n";
  
   post1 += "Preghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera stamattina.";
+
+  //image treatment
+  var file = null
+  let findfile = DriveApp.getFolderById(ImageFolder).getFilesByName(dayObj.special+".jpg");
+  if (findfile.hasNext()) {file=findfile.next().getBlob(); Logger.log(file.getName())}
 
   //Sends Saturday the global number
   var sendTotalUser = 0;
@@ -57,6 +59,8 @@ function doRunUnSalmoALodiSubscribers() {
     try {
       bot.pushMessage(post1, parseInt(id));
       bot.pushMessage(salmoToSend, parseInt(id));
+      //sends image if special day!
+      if (file != null) {bot.pushPicture(file, parseInt(id))}
     } catch (err) {
       bot.pushMessage(EmojiSOS+"Eccezione sul messaggio: " + id.toString(), getDebugChat());
       bot.pushMessage(err.toString(), getDebugChat());

@@ -58,6 +58,27 @@ Bot.prototype.pushMessage = function (text, id) {
     'text' : text
   });
 }
+
+//Sends the picture to a specific user
+Bot.prototype.pushPicture = function (photo, id ) {
+   var options = {
+    'method' : 'post',
+    payload: {'chat_id':id.toString(),
+    'photo': photo},
+    'muteHttpExceptions': true
+  };
+
+  let response= UrlFetchApp.fetch('https://api.telegram.org/bot' + this.token + '/sendPhoto', options);
+   if (response.getResponseCode() == 200) {
+  return JSON.parse(response.getContentText());
+ }
+  if (response.getResponseCode() != 200) {
+  Logger.log(response);
+ }
+return false;
+}
+
+
 //######TASTIERA####
 //still under test to create a custom keyboard
 Bot.prototype.createKeyboard = function(arrayOfButtons) {
