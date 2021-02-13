@@ -14,6 +14,7 @@ const EmojiHolySpirit="🕊️";
 const EmojiFamily="👨‍👩‍👦";
 const EmojiComet="☄️";
 const EmojiSOS="🆘";
+const CharacterCircle = "⬤";
 
 const dayColor= {
   G:EmojiGreenCircle,
@@ -22,7 +23,8 @@ const dayColor= {
   R:EmojiRedCricle,
   S:EmojiCandle,
   B:EmojiBlackCircle,
-  A:EmojiRosary
+  A:EmojiRosary,
+  T:EmojiPray 
 }
 
 const dayTempo = {
@@ -33,6 +35,16 @@ const dayTempo = {
   O:""
 }
 
+const stringColorMailingList= {
+  G:"Oggi paramenti verdi",
+  V:"Oggi paramenti viola",
+  W:"Oggi paramenti bianchi",
+  R:"Oggi paramenti rossi",
+  S:"Oggi paramenti rosa",
+  B:"Oggi paramenti neri",
+  A:"Oggi preghiera Mariana",
+}
+
 const stringsHoly = {
   S: ", nella Solennità di ",
   F: ", nella Festa di ",
@@ -41,9 +53,19 @@ const stringsHoly = {
 }
 
 const stringsTempo = {
-  A: "Nel tempo di Avvento",
-  Q: "Nel tempo di Quaresima",
-  P: "Nel tempo Pasquale",
-  N: "Nel tempo Natalizio",
-  O: "Nel tempo ordinario"
+  A: "Nel tempo di Avvento ",
+  Q: "Nel tempo di Quaresima ",
+  P: "Nel tempo Pasquale ",
+  N: "Nel tempo Natalizio ",
+  O: "Nel tempo ordinario "
+}
+
+const codeColor= {
+  G:"#008000",
+  V:"#8000FF",
+  W:"#FFD700",
+  R:"#A61022",
+  S:"#E75480",
+  B:"#FFFFFF",
+  A:"#ABCDEF",
 }

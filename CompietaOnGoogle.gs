@@ -6,7 +6,7 @@ function CompietaOnGoogle() {
 CompietaOnGoogle.prototype.selectVerse = function(day) {
   //gets the seed
   let dayCol = day +1;
-  var seedT = parseInt( Math.random() * ( parseInt(this.tabData.getRange(2,dayCol,1,1).getValue() ) ))+3;
+  var seedT = parseInt( Math.random() * ( parseInt(this.tabData.getRange(2,dayCol,1,1).getValue() )-2 ))+3;
   return seedT;
 }
 
