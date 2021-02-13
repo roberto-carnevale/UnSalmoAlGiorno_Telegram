@@ -64,7 +64,7 @@ Bot.prototype.pushMessage = function (text, id) {
 
 //////////////////////////////TEST -- WORKING AREA  ///////////////////////////////////////////////
 function testMedia () {
-  var file = DriveApp.getFolderById("16fgZ4yKCc2c-tOmkyuFNFU-_4Oewu4Fz").getFilesByName("brand.jpg").next().getBlob();
+  var file = DriveApp.getFolderById("16fgZ4yKCc2c-tOmkyuFNFU-_4Oewu4Fz").getFilesByName("1102.jpg").next().getBlob();
   //Logger.log(file.getBlob().getContentType());
   var bot = new Bot(token, {})
 
@@ -76,6 +76,9 @@ function testMedia () {
   };
 Logger.log(UrlFetchApp.getRequest('https://api.telegram.org/bot1603346201:AAHspbLK3s9vYjr0Ni8TulLFkl-3ioGQYUg/sendPhoto', options));
  var response = UrlFetchApp.fetch('https://api.telegram.org/bot1603346201:AAHspbLK3s9vYjr0Ni8TulLFkl-3ioGQYUg/sendPhoto', options);
+
+//brand.jpg =hoto', options));
+//1102.jpg="AgACAgQAAxkDAANHYCcTXWns3f7jKOPz9WZyPhHq7G4AApy2MRsMCDlRksf4YTlchz0q7xsnXQADAQADAgADbQADFDEFAAEeBA"
 
 Logger.log(response.getResponseCode());
  if (response.getResponseCode() == 200) {
