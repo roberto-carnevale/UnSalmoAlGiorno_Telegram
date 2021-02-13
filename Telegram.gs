@@ -50,7 +50,7 @@ function doRunUnSalmoALodiSubscribers() {
   //Sends Saturday the global number
   var sendTotalUser = 0;
   if ( (new Date()).getDay() == 6 ) {sendTotalUser = getAllUsers();}
-  if (sendTotalUser != 0 ) {post1 += "\r\n"+ getWeekMsg().toString().replace(/<TOT>/, sendTotalUser) + "\r\n";}
+  if (sendTotalUser != 0 ) {post1 += "\r\n"+ getWeekMsg().toString().replace(/<TOT>/, sendTotalUser).replace(/###/g,"\r\n") + "\r\n";}
   
   for (var id of prayers) {
     //pushes the message
