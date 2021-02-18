@@ -30,18 +30,15 @@ Bot.prototype.request = function (method, data) {
   'contentType': 'application/json',
   // Convert the JavaScript object to a JSON string.
   'payload' : JSON.stringify(data),
-  'muteHttpExceptions' : true
  };
- Logger.log(options.payload.toString());
-
+  
  var response = UrlFetchApp.fetch('https://api.telegram.org/bot' + this.token + '/' + method, options);
- 
+  
  if (response.getResponseCode() == 200) {
   return JSON.parse(response.getContentText());
  }
   if (response.getResponseCode() != 200) {
-  Logger.log(response.getResponseCode());
-  Logger.log(response.getContentText());
+  Logger.log(response);
  }
 return false;
 }
@@ -56,43 +53,31 @@ Bot.prototype.replyToSender = function (text) {
 
 //Sends a direct message
 Bot.prototype.pushMessage = function (text, id) {
-  return this.request('sendMessage', {
+  this.request('sendMessage', {
     'chat_id' : id,
     'text' : text
   });
 }
 
-//////////////////////////////TEST -- WORKING AREA  ///////////////////////////////////////////////
-function testMedia () {
-  var file = DriveApp.getFolderById("16fgZ4yKCc2c-tOmkyuFNFU-_4Oewu4Fz").getFilesByName("1102.jpg").next().getBlob();
-  //Logger.log(file.getBlob().getContentType());
-  var bot = new Bot(token, {})
-
+//Sends the picture to a specific user
+Bot.prototype.pushPicture = function (photo, id ) {
    var options = {
     'method' : 'post',
-    payload: {'chat_id':getDebugChat().toString(),
-    'photo': "AgACAgQAAxkDAANFYCcSduYbYCeYcR_-3YVnnS1TDZgAApu2MRsMCDlRltFAEhksWfYgvQUpXQADAQADAgADbQADjqcDAAEeBA"},
+    payload: {'chat_id':id.toString(),
+    'photo': photo},
     'muteHttpExceptions': true
   };
-Logger.log(UrlFetchApp.getRequest('https://api.telegram.org/bot1603346201:AAHspbLK3s9vYjr0Ni8TulLFkl-3ioGQYUg/sendPhoto', options));
- var response = UrlFetchApp.fetch('https://api.telegram.org/bot1603346201:AAHspbLK3s9vYjr0Ni8TulLFkl-3ioGQYUg/sendPhoto', options);
 
-//brand.jpg =hoto', options));
-//1102.jpg="AgACAgQAAxkDAANHYCcTXWns3f7jKOPz9WZyPhHq7G4AApy2MRsMCDlRksf4YTlchz0q7xsnXQADAQADAgADbQADFDEFAAEeBA"
-
-Logger.log(response.getResponseCode());
- if (response.getResponseCode() == 200) {
-  Logger.log(response);
-  return JSON.parse(response);
+  let response= UrlFetchApp.fetch('https://api.telegram.org/bot' + this.token + '/sendPhoto', options);
+   if (response.getResponseCode() == 200) {
+  return JSON.parse(response.getContentText());
  }
   if (response.getResponseCode() != 200) {
   Logger.log(response);
-
  }
 return false;
 }
 
-//////////////////////////////////////////////////////////////////////
 
 //######TASTIERA####
 //still under test to create a custom keyboard

@@ -118,7 +118,7 @@ function doPost(e) {
     bus.trays_request(/#Tutti/, function () {
       let subscribers = new SpreadData();
       subscribers.setTime(bot.update.message.chat.id,"t");
-      bot.replyToSender("Un Salmo di buon mattino e uno la sera prima di coricarti.");
+      bot.replyToSender("Un Salmo di buon mattino e un versetto di Compieta la sera prima di coricarti.");
       bot.destroyKeyboard();
 
     });
