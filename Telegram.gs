@@ -13,14 +13,13 @@ function doRunUnSalmoAcompietaSubscribers() {
   var post1 = "Compieta "+compietaObj.getDayString(now.getDay())+", preghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera.";
   //record for twitter and Facebook
   let compietaToRecord = "Compieta "+compietaObj.getDayString(now.getDay())+"\r\n \r\n"+salmoToSend;
-  setCompietaFull(compietaToRecord.replace(/\r\n/g, "###") + "### ###" + salmoToSend.replace(/\r\n/g, "###"));
+  setCompietaFull(compietaToRecord.replace(/\r\n/g, "###"));
   //sends to all
   for (var id of prayers) {
     //pushes the message
     try {
       bot.pushMessage(post1, parseInt(id));
       bot.pushMessage(salmoToSend, parseInt(id));
-      bot.pushPicture(getcompietaFileID(), parseInt(id));
     } catch (err) {
       bot.pushMessage(EmojiSOS+"Eccezione sul messaggio: " + id.toString(), getDebugChat());
       bot.pushMessage(err.toString(), getDebugChat());
