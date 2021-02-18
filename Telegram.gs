@@ -20,6 +20,7 @@ function doRunUnSalmoAcompietaSubscribers() {
     try {
       bot.pushMessage(post1, parseInt(id));
       bot.pushMessage(salmoToSend, parseInt(id));
+      bot.pushPicture(getcompietaFileID(), parseInt(id));
     } catch (err) {
       bot.pushMessage(EmojiSOS+"Eccezione sul messaggio: " + id.toString(), getDebugChat());
       bot.pushMessage(err.toString(), getDebugChat());
@@ -48,9 +49,11 @@ function doRunUnSalmoALodiSubscribers() {
   post1 += "Preghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera stamattina.";
 
   //image treatment
-  var file = null
-  let findfile = DriveApp.getFolderById(ImageFolder).getFilesByName(dayObj.special+".jpg");
-  if (findfile.hasNext()) {file=findfile.next().getBlob(); Logger.log(file.getName())}
+  var file = null;
+  let folder = DriveApp.getFolderById(ImageFolder);
+  let findfile = folder.getFilesByName(dayObj.special+".jpg");
+  if (findfile.hasNext()) {file=findfile.next().getBlob();} 
+  else {file=folder.getFilesByName(dayObj.baseImage).next().getBlob();}
 
   //Sends Saturday the global number
   var sendTotalUser = 0;
@@ -63,7 +66,7 @@ function doRunUnSalmoALodiSubscribers() {
       bot.pushMessage(post1, parseInt(id));
       bot.pushMessage(salmoToSend, parseInt(id));
       //sends image if special day!
-      if (file != null) {bot.pushPicture(file, parseInt(id))}
+      file = bot.pushPicture(file, parseInt(id));
     } catch (err) {
       bot.pushMessage(EmojiSOS+"Eccezione sul messaggio: " + id.toString(), getDebugChat());
       bot.pushMessage(err.toString(), getDebugChat());

@@ -70,7 +70,7 @@ Bot.prototype.pushPicture = function (photo, id ) {
 
   let response= UrlFetchApp.fetch('https://api.telegram.org/bot' + this.token + '/sendPhoto', options);
    if (response.getResponseCode() == 200) {
-  return JSON.parse(response.getContentText());
+  return JSON.parse(response.getContentText()).result.photo[0].file_id;
  }
   if (response.getResponseCode() != 200) {
   Logger.log(response);

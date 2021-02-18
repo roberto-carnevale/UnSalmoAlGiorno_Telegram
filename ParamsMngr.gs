@@ -66,7 +66,9 @@ function getAllUsers() {
 }
 
 
-
+function getcompietaFileID() {
+  return readParams().getRange("B12").getValue();
+}
 
 
 
