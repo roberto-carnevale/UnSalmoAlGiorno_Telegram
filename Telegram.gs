@@ -3,23 +3,18 @@ function doRunUnSalmoAcompietaSubscribers() {
   //creates the bot and the samiObj
   var spread = new SpreadData();
   var bot = new Bot(token, {});
-  var compietaObj = new CompietaOnGoogle();
-  // find the day of the week
-  let now = new Date();
-  now.setUTCHours(12,0,0,0);
-  let verseRow = compietaObj.selectVerse(now.getDay());
+
+  //gets the verse from params
+  let verseRow = getCompietaFull().toString().replace(/###/g, "\r\n");
   var prayers = spread.listSubscribersByTime("c");
-  let salmoToSend = compietaObj.createNiceVerse(verseRow, now.getDay())+ "\r\n \r\nBuonanotte 🛌";
-  var post1 = "Compieta "+compietaObj.getDayString(now.getDay())+", preghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera.";
-  //record for twitter and Facebook
-  let compietaToRecord = "Compieta "+compietaObj.getDayString(now.getDay())+"\r\n \r\n"+salmoToSend;
-  setCompietaFull(compietaToRecord.replace(/\r\n/g, "###"));
+  let salmoToSend = verseRow + "\r\n \r\nBuonanotte 🛌";
+  var post1 = "Preghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera.\r\n" + salmoToSend;
+
   //sends to all
   for (var id of prayers) {
     //pushes the message
     try {
       bot.pushMessage(post1, parseInt(id));
-      bot.pushMessage(salmoToSend, parseInt(id));
     } catch (err) {
       bot.pushMessage(EmojiSOS+"Eccezione sul messaggio: " + id.toString(), getDebugChat());
       bot.pushMessage(err.toString(), getDebugChat());
