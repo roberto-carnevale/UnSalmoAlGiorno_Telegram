@@ -38,9 +38,10 @@ function doRunUnSalmoALodiSubscribers() {
   var prayers = spread.listSubscribersByTime("l");
   let dayObj = getLiturgicDay();
 
-  let post1 = dayColor[dayObj.color]+ "  "+stringColorMailingList[dayObj.color]+ "  " +dayColor[dayObj.color]+"\r\n"+ getdayFull().toString().replace(/###/g,"\r\n") +"\r\n\r\n";
+  let post1 = dayColor[dayObj.color]+ "  "+stringColorMailingList[dayObj.color]+ "  " +dayColor[dayObj.color]+"\r\n"+ getdayFull().toString().replace(/###/g,"\r\n");
  
-  post1 += "Preghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera stamattina.";
+  if (dayObj.text) {post1 += "\r\n" + dayObj.text.toString().replace(/###/g,"\r\n")}
+  post1 += "\r\n\r\nPreghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera stamattina.";
 
   //image treatment
   var file = null;
