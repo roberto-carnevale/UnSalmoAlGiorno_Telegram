@@ -61,6 +61,10 @@ function getCompietaFull() {
   return readParams().getRange("B11").getValue();
 }
 
+function getCompietaImage() {
+  return readParams().getRange("B12").getValue();
+}
+
 function getTelegramSubcribers() {
   return SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName("Subscribers").getDataRange().getNumRows();
 }

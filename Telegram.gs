@@ -10,11 +10,15 @@ function doRunUnSalmoAcompietaSubscribers() {
   let salmoToSend = verseRow + "\r\n \r\nBuonanotte 🛌";
   var post1 = "Preghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera.\r\n" + salmoToSend;
 
+  //image treatment
+  let file = DriveApp.getFolderById(ImageFolder).getFilesByName(getCompietaImage()).next().getBlob();
+
   //sends to all
   for (var id of prayers) {
     //pushes the message
     try {
       bot.pushMessage(post1, parseInt(id));
+      file = bot.pushPicture(file, parseInt(id));
     } catch (err) {
       bot.pushMessage(EmojiSOS+"Eccezione sul messaggio: " + id.toString(), getDebugChat());
       bot.pushMessage(err.toString(), getDebugChat());
