@@ -57,6 +57,9 @@ function getWeekMsg () {
 function setCompietaFull(msg) {
   readParams().getRange("B11").setValue(msg);
 }
+function getCompietaFull() {
+  return readParams().getRange("B11").getValue();
+}
 
 function getTelegramSubcribers() {
   return SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName("Subscribers").getDataRange().getNumRows();
@@ -66,9 +69,7 @@ function getAllUsers() {
 }
 
 
-function getcompietaFileID() {
-  return readParams().getRange("B12").getValue();
-}
+
 
 
 

@@ -43,6 +43,7 @@ const stringColorMailingList= {
   S:"Oggi paramenti rosa",
   B:"Oggi paramenti neri",
   A:"Oggi preghiera Mariana",
+  X:"Giornata aliturgica",
 }
 
 const stringsHoly = {
@@ -68,4 +69,5 @@ const codeColor= {
   S:"#E75480",
   B:"#FFFFFF",
   A:"#ABCDEF",
+  X:"#FFFFFF",
 }
