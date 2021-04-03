@@ -56,13 +56,4 @@ SalmiOnGoogle.prototype.createNiceVerseRandom = function(seedT) {
   let verse = verseRaw[0][0]+","+verseRaw[0][2] + "###" + verseRaw[0][3].toString();
   return verse.replace(/###/g,"\r\n");
 }
-
-
-
-//Testing function. Use locally
-function test(){
-  var f = new SalmiOnGoogle();
-  var r = f.selectVerse();
-  Logger.log(r);
-}
     
