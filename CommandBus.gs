@@ -1,3 +1,4 @@
+
 //object to process commands
 function CommandBus() {
  this.commands = [];

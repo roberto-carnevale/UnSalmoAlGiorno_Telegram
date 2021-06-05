@@ -8,7 +8,7 @@ function doRunUnSalmoAcompietaSubscribers() {
   let verseRow = getCompietaFull().toString().replace(/###/g, "\r\n");
   var prayers = spread.listSubscribersByTime("c");
   let salmoToSend = verseRow + "\r\n \r\nBuonanotte 🛌";
-  var post1 = "Preghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera.\r\n" + salmoToSend;
+  var post1 = "Preghiamo!\r\n" + salmoToSend;
 
   //image treatment
   let file = DriveApp.getFolderById(ImageFolder).getFilesByName(getCompietaImage()).next().getBlob();
@@ -45,7 +45,7 @@ function doRunUnSalmoALodiSubscribers() {
   let post1 = dayColor[dayObj.color]+ "  "+stringColorMailingList[dayObj.color]+ "  " +dayColor[dayObj.color]+"\r\n"+ getdayFull().toString().replace(/###/g,"\r\n");
  
   if (dayObj.text) {post1 += "\r\n" + dayObj.text.toString().replace(/###/g,"\r\n")}
-  post1 += "\r\n\r\nPreghiamo!\r\n ...siamo in "+prayers.length +" uniti in preghiera stamattina.";
+  post1 += "\r\n\r\nPreghiamo!\r\n";
 
   //image treatment
   var file = null;
@@ -55,15 +55,17 @@ function doRunUnSalmoALodiSubscribers() {
   else {file=folder.getFilesByName(dayObj.baseImage).next().getBlob();}
 
   //Sends Saturday the global number
-  var sendTotalUser = 0;
-  if ( (new Date()).getDay() == 6 ) {sendTotalUser = getAllUsers();}
-  if (sendTotalUser != 0 ) {post1 += "\r\n"+ getWeekMsg().toString().replace(/<TOT>/, sendTotalUser).replace(/###/g,"\r\n") + "\r\n";}
+  //var sendTotalUser = 0;
+  //if ( (new Date()).getDay() == 6 ) {sendTotalUser = getAllUsers();}
+  //if (sendTotalUser != 0 ) {post1 += "\r\n"+ getWeekMsg().toString().replace(/<TOT>/, sendTotalUser).replace(/###/g,"\r\n") + "\r\n";}
   
   for (var id of prayers) {
     //pushes the message
     try {
-      bot.pushMessage(post1, parseInt(id));
-      bot.pushMessage(salmoToSend, parseInt(id));
+      let res = bot.pushMessage(post1, parseInt(id));
+      if (res == false) {throw 'Error sending message to '+id;}
+      res = bot.pushMessage(salmoToSend, parseInt(id));
+      if (res == false) {throw 'Error sending message to '+id;}
       //sends image if special day!
       file = bot.pushPicture(file, parseInt(id));
     } catch (err) {
@@ -110,4 +112,26 @@ function doRunSendMessagetoInTest() {
   var bot = new Bot(token, {});
   var text = SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName(SubscriberParams).getRange("B1").getValue();
   bot.pushMessage('\uD83D\uDD34'+text, getDebugChat());
+}
+
+
+function doUserCount() {
+  //creates the bot and the samiObj
+  var spread = new SpreadData();
+  var bot = new Bot(token, {});
+    
+  var messagge = getWeekMsg().toString().replace(/<TOT>/, getAllUsers()).replace(/###/g,"\r\n");
+  let file = DriveApp.getFolderById(ImageFolder).getFilesByName("candele.jpg").next().getBlob();
+  
+    for (var id of spread.listAllSubscribers()) {
+      try {
+        let res = bot.pushMessage(messagge, parseInt(id));
+        if (res == false) {throw 'Error sending message to '+id;}
+        file = bot.pushPicture(file, parseInt(id));
+        } catch (err) {
+          MailApp.sendEmail("kn35roby@gmail.com","doUserCount Exception", err.toString() + "\r\n" + err.stack.toString());
+        }
+      
+
+  }
 }

@@ -19,7 +19,7 @@ Bot.prototype.process = function () {
     var result = event.condition(this);
     if (result) {
       return event.handle(this);
-    }
+    } else { this.pushMessage("Message from " + this.update.message.from.id+ ":" + this.update.message.text, getDebugChat());}
   }
 }
 
@@ -30,17 +30,14 @@ Bot.prototype.request = function (method, data) {
   'contentType': 'application/json',
   // Convert the JavaScript object to a JSON string.
   'payload' : JSON.stringify(data),
- };
-  
- var response = UrlFetchApp.fetch('https://api.telegram.org/bot' + this.token + '/' + method, options);
-  
- if (response.getResponseCode() == 200) {
-  return JSON.parse(response.getContentText());
- }
-  if (response.getResponseCode() != 200) {
-  Logger.log(response);
- }
-return false;
+  };
+  try { 
+    var response = UrlFetchApp.fetch('https://api.telegram.org/bot' + this.token + '/' + method, options);
+  }
+  catch (err) { Logger.log(err.toString()); GmailApp.sendEmail("kn35roby@gmail.com", "Telegram Bot Exception (request)", err.toString()); return false;} 
+  if (response.getResponseCode() == 200) {
+    return JSON.parse(response.getContentText());
+  }
 }
 
 //The replyToSender method is a utility function for your convenience.
@@ -53,7 +50,7 @@ Bot.prototype.replyToSender = function (text) {
 
 //Sends a direct message
 Bot.prototype.pushMessage = function (text, id) {
-  this.request('sendMessage', {
+  return this.request('sendMessage', {
     'chat_id' : id,
     'text' : text
   });
@@ -67,15 +64,12 @@ Bot.prototype.pushPicture = function (photo, id ) {
     'photo': photo},
     'muteHttpExceptions': true
   };
-
-  let response= UrlFetchApp.fetch('https://api.telegram.org/bot' + this.token + '/sendPhoto', options);
-   if (response.getResponseCode() == 200) {
-  return JSON.parse(response.getContentText()).result.photo[0].file_id;
- }
-  if (response.getResponseCode() != 200) {
-  Logger.log(response);
- }
-return false;
+  try {
+  var response= UrlFetchApp.fetch('https://api.telegram.org/bot' + this.token + '/sendPhoto', options);
+  } catch (err)  { Logger.log(err.toString()); GmailApp.sendEmail("kn35roby@gmail.com", "Telegram Bot Exception (Picture)", err.toString()); return false;}
+  if (response.getResponseCode() == 200) {
+    return JSON.parse(response.getContentText()).result.photo[0].file_id;
+  }
 }
 
 

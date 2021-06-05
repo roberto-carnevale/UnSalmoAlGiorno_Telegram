@@ -1,3 +1,7 @@
+// Deployment ID
+const deployementID ='AKfycby2GBnTdjE8PXInRUtg7ga87qkDWe2RBL8Cnq1DhdzqQ7gEvYg39SRw64LSCiG3KOdK';
+var currentWebApp= "https://script.google.com/macros/s/"+deployementID+"/exec";
+
 function setWebhook() {
   var bot = new Bot(token, {});
   Logger.log(ScriptApp.getService().getUrl())

@@ -69,7 +69,7 @@ function getTelegramSubcribers() {
   return SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName("Subscribers").getDataRange().getNumRows();
 }
 function getAllUsers() {
-  return getTelegramSubcribers()+getFacebookLikes()+getTwitterFollowers();
+  return readParams().getRange("B16").getValue();
 }
 
 
