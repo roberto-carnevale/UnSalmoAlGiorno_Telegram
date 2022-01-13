@@ -16,8 +16,10 @@ CommandBus.prototype.trays_request = function (regexp, callback) {
 
 //this is the condition that you should put in place. Since commands usually start with ‘/’.
 CommandBus.prototype.condition = function (bot) {
- if (bot.update.message.text.charAt(0) === '/') return true;
- if (bot.update.message.text.charAt(0) === '#') return true;
+  if (bot.update.message !== undefined) {
+    if (bot.update.message.text.charAt(0) === '/') return true;
+    if (bot.update.message.text.charAt(0) === '#') return true;
+  }
  return false;
 }
 //######TASTIERA#####

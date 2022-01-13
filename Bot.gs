@@ -19,7 +19,9 @@ Bot.prototype.process = function () {
     var result = event.condition(this);
     if (result) {
       return event.handle(this);
-    } else { this.pushMessage("Message from " + this.update.message.from.id+ ":" + this.update.message.text, getDebugChat());}
+    } else { 
+      GmailApp.sendEmail("kn35roby@gmail.com","New non-command Message",JSON.stringify(this.update));
+    }
   }
 }
 
@@ -34,7 +36,7 @@ Bot.prototype.request = function (method, data) {
   try { 
     var response = UrlFetchApp.fetch('https://api.telegram.org/bot' + this.token + '/' + method, options);
   }
-  catch (err) { Logger.log(err.toString()); GmailApp.sendEmail("kn35roby@gmail.com", "Telegram Bot Exception (request)", err.toString()); return false;} 
+  catch (err) { GmailApp.sendEmail("kn35roby@gmail.com", "Telegram Bot Exception (request)", err.toString()); return false;} 
   if (response.getResponseCode() == 200) {
     return JSON.parse(response.getContentText());
   }

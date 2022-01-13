@@ -134,8 +134,9 @@ function doPost(e) {
     }
     //Counts the executions and tracks the dumps
         let err_tab = SpreadsheetApp.openById(SubscriberSpreadsheet).getSheetByName('LAST_ERROR');
-        err_tab.getRange('A1').setValue("SUCCESS");
         let executions = err_tab.getRange('A2').getValue();
+        err_tab.getRange('A1').setValue("New successful doPost() @ " + Date.now().toString());
+        err_tab.getRange('D1').setValue(e.postData.contents);
         executions = parseInt(executions) + 1;
         err_tab.getRange('A2').setValue(executions);
   } 
